@@ -15,7 +15,7 @@ public class login extends JFrame implements ActionListener{
     login()
     {
         super("Praptank:-Login");
-        setBounds(600,250,900,600);
+        setBounds(250, 50,900,600);
 //        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

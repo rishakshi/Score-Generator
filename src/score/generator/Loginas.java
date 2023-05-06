@@ -1,12 +1,11 @@
 package score.generator;
 
+import student.Login;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.*;
 import java.sql.*;
 import javax.swing.*;
-
-
 
 
 public class Loginas extends JFrame implements ActionListener{
@@ -78,7 +77,7 @@ public class Loginas extends JFrame implements ActionListener{
         public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == Student) {
             setVisible(false); 
-            new login(); 
+            new Login(); 
         } else if (ae.getSource() == College) {
             setVisible(false);
             

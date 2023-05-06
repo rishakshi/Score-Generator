@@ -15,14 +15,14 @@ public class RegisterStudent extends JFrame implements ActionListener {
 	ButtonGroup G;
 	DateFormat df;
 	JFormattedTextField txtDate;
-	JButton eVerify, mVerify, altVerify, next;
+	JButton eVerify, mVerify, altVerify, next, back;
 	JLabel PersDet, NameLabel, FNameLabel, MNameLabel, GenderLabel, DOBLabel, EMailLabel, MobLabel, AltMobLabel, UniqID,
 			PassLabel, CPassLabel, ID;
 
 	public RegisterStudent() {
 
 		super("Praptank | Student Registration");
-		setBounds(600, 250, 900, 600);
+		setBounds(250, 50, 900, 600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		JPanel p = new JPanel();
@@ -169,6 +169,12 @@ public class RegisterStudent extends JFrame implements ActionListener {
         CPassword.setBounds(150, 350, 200, 20);
         p.add(CPassword);
         
+        back = new JButton("Back to LogIn");
+        back.setForeground(Color.BLACK);
+        back.setBounds(150, 400, 120, 25);
+        back.addActionListener(this);
+        p.add(back);
+        
         next = new JButton("Save and Next");
         next.setForeground(Color.BLACK);
         next.setBounds(300, 400, 120, 25);
@@ -184,6 +190,11 @@ public class RegisterStudent extends JFrame implements ActionListener {
 		if(e.getSource() == next) {
 			setVisible(false);
             new RegisterStudent2();
+		}
+		
+		if(e.getSource() == back) {
+			setVisible(false);
+			new Login();
 		}
 
 	}
