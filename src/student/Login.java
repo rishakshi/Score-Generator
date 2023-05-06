@@ -1,20 +1,23 @@
-package score.generator;
+package student;
 
 import java.awt.Color;
 import javax.swing.*;
+
+import score.generator.Loginas;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
 
-public class login extends JFrame implements ActionListener{
+public class Login extends JFrame implements ActionListener{
     
     JTextField username;
     JPasswordField password;
     Choice loginin;
     JButton login,cancel,signup, back;
-    login()
+    Login()
     {
-        super("Praptank:-Login");
+        super("Praptank | Student Login");
         setBounds(600,250,900,600);
 //        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
@@ -124,34 +127,34 @@ public class login extends JFrame implements ActionListener{
     
     public void actionPerformed(ActionEvent ae){
         if(ae.getSource()==login){
-            String id = username.getText();
-            String pass = password.getText();
-            
-            try{
-                ConnectJDBC c = new ConnectJDBC();
-                String query = "select * from login where Praaptaank_Id ='"+id+"' and Password = '"+pass+"'";
-                
-                ResultSet rs = c.s.executeQuery(query);
-                
-                if(rs.next()){
-                    String Id = rs.getString("Praaptaank_Id");
-                    setVisible(false);
-                    new project(Id);
-                    
-                }else {
-                    JOptionPane.showMessageDialog(null, "Invalid Login");
-                    username.setText("");
-                    password.setText("");
-                }
-            }catch (Exception e) {
-                e.printStackTrace();
-            }
+//            String id = username.getText();
+//            String pass = password.getText();
+//            
+//            try{
+//                ConnectJDBC c = new ConnectJDBC();
+//                String query = "select * from login where Praaptaank_Id ='"+id+"' and Password = '"+pass+"'";
+//                
+//                ResultSet rs = c.s.executeQuery(query);
+//                
+//                if(rs.next()){
+//                    String Id = rs.getString("Praaptaank_Id");
+//                    setVisible(false);
+//                    new project(Id);
+//                    
+//                }else {
+//                    JOptionPane.showMessageDialog(null, "Invalid Login");
+//                    username.setText("");
+//                    password.setText("");
+//                }
+//            }catch (Exception e) {
+//                e.printStackTrace();
+//            }
         }else if (ae.getSource() == cancel) {
             setVisible(false);
         } else if (ae.getSource() == signup) {
             setVisible(false);
             
-            new RegisterCollege();
+            new RegisterStudent();
     }
         else if (ae.getSource() == back) {
             setVisible(false);
@@ -165,6 +168,6 @@ public class login extends JFrame implements ActionListener{
     
     public static void main(String[] args)
     {
-        new login();
+        new Login();
     }
 }

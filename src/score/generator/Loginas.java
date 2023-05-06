@@ -12,7 +12,7 @@ import javax.swing.*;
 public class Loginas extends JFrame implements ActionListener{
     JButton Student,College;
     
-    Loginas(){
+    public Loginas(){
         
         super("Praaptank:-Login");
         setBounds(600,250,900,600);

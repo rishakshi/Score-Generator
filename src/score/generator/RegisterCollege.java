@@ -19,7 +19,7 @@ public class RegisterCollege extends JFrame implements ActionListener{
     
     RegisterCollege(){
     
-        super("Praptank:-Add College");
+        super("Praptank | College Registration");
         setBounds(600,250,900,600);
 //        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
