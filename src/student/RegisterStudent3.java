@@ -4,6 +4,11 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -20,11 +25,13 @@ public class RegisterStudent3 extends JFrame implements ActionListener {
 	private JButton addEducationButton, completeButton, addButton, addMoreButton, back, back2, fileButton;
 	private JLabel educationLabel, schoolNameLabel, UniversityLabel, courseNameLabel, successLabel, headingLabel,
 			boardLabel, enrollmentNumberLabel, sem1Label, sem2Label, sem3Label, sem4Label, sem5Label, sem6Label,
-			sem7Label, sem8Label, aggLabel, SpecificationLabel, durationLabel, percentageLabel, yearOfPassingLabel, fileLabel;
+			sem7Label, sem8Label, aggLabel, SpecificationLabel, durationLabel, percentageLabel, yearOfPassingLabel,
+			fileLabel;
 	private String educationLevel;
 	private JPanel p;
 	private JTextField schoolNameField, enrollmentNumberField, SpecificationField, percentageField, yearOfPassingField,
-			sem1Field, sem2Field, sem3Field, sem4Field, sem5Field, sem6Field, sem7Field, sem8Field, aggField, durationField;
+			sem1Field, sem2Field, sem3Field, sem4Field, sem5Field, sem6Field, sem7Field, sem8Field, aggField,
+			durationField;
 
 	public RegisterStudent3() {
 		super("Praptank | Student Registration");
@@ -74,11 +81,10 @@ public class RegisterStudent3 extends JFrame implements ActionListener {
 
 		if (e.getSource() == addEducationButton) {
 
-			setBounds(100, 100, 800, 600);
-
 			educationLevel = (String) educationList.getSelectedItem();
 
 			if (educationLevel.equals("High School")) {
+				setBounds(100, 100, 800, 600);
 				p.removeAll();
 				p.revalidate();
 				p.repaint();
@@ -145,10 +151,10 @@ public class RegisterStudent3 extends JFrame implements ActionListener {
 						if (result == JFileChooser.APPROVE_OPTION) {
 							File selectedFile = fileChooser.getSelectedFile();
 							String fileName = selectedFile.getName();
-							fileLabel.setText("Selected File: " + fileName);
-							fileLabel.setBounds(30, 210, 230, 20);
+							fileLabel.setText("Marksheet:                           " + fileName);
+							fileLabel.setBounds(30, 210, 350, 20);
 							fileButton.setText("Change File");
-							fileButton.setBounds(250, 210, 150, 20);
+							fileButton.setBounds(400, 210, 150, 20);
 						}
 					}
 				});
@@ -161,7 +167,6 @@ public class RegisterStudent3 extends JFrame implements ActionListener {
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						// TODO Auto-generated method stub
 						setVisible(false);
 						new RegisterStudent3();
 
@@ -173,12 +178,65 @@ public class RegisterStudent3 extends JFrame implements ActionListener {
 				addButton.setBounds(150, 260, 100, 20);
 				addButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+/*
+						// TODO: Code to save the details to the database goes here
 
-						// Code to save the details to the database goes here
+						String board = (String) boardList.getSelectedItem();
+						String schoolName = schoolNameField.getText();
+						String enrollmentNumber = enrollmentNumberField.getText();
+						String percentage = percentageField.getText();
+						String yearOfPassing = yearOfPassingField.getText();
+						String fileName = fileLabel.getText().replace("Marksheet: ", "");
+
+						// Use JDBC to save the education details to the database
+
+						String url = "jdbc:mysql://localhost/mydatabase";
+						String user = "myusername";
+						String password = "mypassword";
+						Connection conn = null;
+
+						try {
+							// Set up the database connection
+							conn = DriverManager.getConnection(url, user, password);
+
+							// Create a prepared statement for the SQL insert command
+							String sql = "INSERT INTO education (board, school_name, enrollment_number, percentage, year_of_passing, file_name) "
+									+ "VALUES (?, ?, ?, ?, ?, ?)";
+							PreparedStatement statement = conn.prepareStatement(sql);
+							statement.setString(1, board);
+							statement.setString(2, schoolName);
+							statement.setString(3, enrollmentNumber);
+							statement.setString(4, percentage);
+							statement.setString(5, yearOfPassing);
+							statement.setString(6, fileName);
+							
+							ResultSet rs=statement.executeQuery(sql);  
+
+						} catch (SQLException ex) {
+							ex.printStackTrace();
+						}
+						finally {
+							if(conn != null) {
+								try {
+									conn.close();
+								} catch (SQLException e1) {
+									e1.printStackTrace();
+								}
+							}
+						}
+*/
+						// Clear the input fields
+						boardList.setSelectedIndex(0);
+						schoolNameField.setText("");
+						enrollmentNumberField.setText("");
+						percentageField.setText("");
+						yearOfPassingField.setText("");
+						fileLabel.setText("Marksheet:");
 
 						p.removeAll();
 						p.revalidate();
 						p.repaint();
+						setBounds(100, 100, 400, 400);
 
 						successLabel = new JLabel(educationLevel + " details added successfully!");
 						successLabel.setBounds(100, 80, 300, 30);
@@ -198,7 +256,8 @@ public class RegisterStudent3 extends JFrame implements ActionListener {
 						completeButton.setBounds(100, 150, 150, 20);
 						completeButton.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
-								dispose();
+								setVisible(false);
+								new RegisterStudent4();
 							}
 						});
 						p.add(completeButton);
@@ -208,6 +267,7 @@ public class RegisterStudent3 extends JFrame implements ActionListener {
 			}
 
 			else if (educationLevel.equals("Intermediate")) {
+				setBounds(100, 100, 800, 600);
 				p.removeAll();
 				p.revalidate();
 				p.repaint();
@@ -251,11 +311,11 @@ public class RegisterStudent3 extends JFrame implements ActionListener {
 				p.add(percentageField);
 
 				yearOfPassingLabel = new JLabel("Year of Passing:");
-				yearOfPassingLabel.setBounds(30, 180, 150, 30);
+				yearOfPassingLabel.setBounds(30, 180, 150, 20);
 				p.add(yearOfPassingLabel);
 
 				yearOfPassingField = new JTextField();
-				yearOfPassingField.setBounds(180, 180, 200, 30);
+				yearOfPassingField.setBounds(180, 180, 200, 20);
 				p.add(yearOfPassingField);
 
 				fileLabel = new JLabel("Marksheet:");
@@ -268,16 +328,16 @@ public class RegisterStudent3 extends JFrame implements ActionListener {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						JFileChooser fileChooser = new JFileChooser();
-						FileNameExtensionFilter filter = new FileNameExtensionFilter("PDF Files",  "pdf");
+						FileNameExtensionFilter filter = new FileNameExtensionFilter("PDF Files", "pdf");
 						fileChooser.setFileFilter(filter);
 						int result = fileChooser.showOpenDialog(fileButton);
 						if (result == JFileChooser.APPROVE_OPTION) {
 							File selectedFile = fileChooser.getSelectedFile();
 							String fileName = selectedFile.getName();
-							fileLabel.setText("Selected File: " + fileName);
-							fileLabel.setBounds(30, 210, 230, 20);
+							fileLabel.setText("Marksheet:                           " + fileName);
+							fileLabel.setBounds(30, 210, 350, 20);
 							fileButton.setText("Change File");
-							fileButton.setBounds(250, 210, 150, 20);
+							fileButton.setBounds(400, 210, 150, 20);
 						}
 					}
 				});
@@ -290,7 +350,6 @@ public class RegisterStudent3 extends JFrame implements ActionListener {
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						// TODO Auto-generated method stub
 						setVisible(false);
 						new RegisterStudent3();
 
@@ -303,11 +362,12 @@ public class RegisterStudent3 extends JFrame implements ActionListener {
 				addButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 
-						// Code to save the details to the database goes here
+						// TODO: Code to save the details to the database goes here
 
 						p.removeAll();
 						p.revalidate();
 						p.repaint();
+						setBounds(100, 100, 400, 400);
 
 						successLabel = new JLabel(educationLevel + " details added successfully!");
 						successLabel.setBounds(100, 80, 300, 30);
@@ -327,7 +387,8 @@ public class RegisterStudent3 extends JFrame implements ActionListener {
 						completeButton.setBounds(100, 150, 150, 20);
 						completeButton.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
-								dispose();
+								setVisible(false);
+								new RegisterStudent4();
 							}
 						});
 						p.add(completeButton);
@@ -337,6 +398,7 @@ public class RegisterStudent3 extends JFrame implements ActionListener {
 			}
 
 			else if (educationLevel.equals("Graduation")) {
+				setBounds(100, 100, 800, 600);
 				p.removeAll();
 				p.revalidate();
 				p.repaint();
@@ -474,16 +536,16 @@ public class RegisterStudent3 extends JFrame implements ActionListener {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						JFileChooser fileChooser = new JFileChooser();
-						FileNameExtensionFilter filter = new FileNameExtensionFilter("PDF Files",  "pdf");
+						FileNameExtensionFilter filter = new FileNameExtensionFilter("PDF Files", "pdf");
 						fileChooser.setFileFilter(filter);
 						int result = fileChooser.showOpenDialog(fileButton);
 						if (result == JFileChooser.APPROVE_OPTION) {
 							File selectedFile = fileChooser.getSelectedFile();
 							String fileName = selectedFile.getName();
-							fileLabel.setText("Selected File: " + fileName);
-							fileLabel.setBounds(30, 390, 230, 20);
+							fileLabel.setText("Last Sem Marksheet:          " + fileName);
+							fileLabel.setBounds(30, 390, 350, 20);
 							fileButton.setText("Change File");
-							fileButton.setBounds(250, 390, 150, 20);
+							fileButton.setBounds(400, 390, 150, 20);
 						}
 					}
 				});
@@ -509,11 +571,12 @@ public class RegisterStudent3 extends JFrame implements ActionListener {
 				addButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 
-						// Code to save the details to the database goes here
+						// TODO: Code to save the details to the database goes here
 
 						p.removeAll();
 						p.revalidate();
 						p.repaint();
+						setBounds(100, 100, 400, 400);
 
 						successLabel = new JLabel(educationLevel + " details added successfully!");
 						successLabel.setBounds(100, 80, 300, 30);
@@ -533,7 +596,8 @@ public class RegisterStudent3 extends JFrame implements ActionListener {
 						completeButton.setBounds(100, 160, 150, 30);
 						completeButton.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
-								dispose();
+								setVisible(false);
+								new RegisterStudent4();
 							}
 						});
 						p.add(completeButton);
@@ -543,6 +607,7 @@ public class RegisterStudent3 extends JFrame implements ActionListener {
 			}
 
 			else if (educationLevel.equals("Post-Graduation")) {
+				setBounds(100, 100, 800, 600);
 				p.removeAll();
 				p.revalidate();
 				p.repaint();
@@ -656,16 +721,16 @@ public class RegisterStudent3 extends JFrame implements ActionListener {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						JFileChooser fileChooser = new JFileChooser();
-						FileNameExtensionFilter filter = new FileNameExtensionFilter("PDF Files",  "pdf");
+						FileNameExtensionFilter filter = new FileNameExtensionFilter("PDF Files", "pdf");
 						fileChooser.setFileFilter(filter);
 						int result = fileChooser.showOpenDialog(fileButton);
 						if (result == JFileChooser.APPROVE_OPTION) {
 							File selectedFile = fileChooser.getSelectedFile();
 							String fileName = selectedFile.getName();
-							fileLabel.setText("Selected File: " + fileName);
-							fileLabel.setBounds(30, 330, 230, 20);
+							fileLabel.setText("Last Sem Marksheet:          " + fileName);
+							fileLabel.setBounds(30, 330, 350, 20);
 							fileButton.setText("Change File");
-							fileButton.setBounds(250, 330, 150, 20);
+							fileButton.setBounds(400, 330, 150, 20);
 						}
 					}
 				});
@@ -678,7 +743,6 @@ public class RegisterStudent3 extends JFrame implements ActionListener {
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						// TODO Auto-generated method stub
 						setVisible(false);
 						new RegisterStudent3();
 
@@ -691,11 +755,12 @@ public class RegisterStudent3 extends JFrame implements ActionListener {
 				addButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 
-						// Code to save the details to the database goes here
+						// TODO: Code to save the details to the database goes here
 
 						p.removeAll();
 						p.revalidate();
 						p.repaint();
+						setBounds(100, 100, 400, 400);
 
 						successLabel = new JLabel(educationLevel + " details added successfully!");
 						successLabel.setBounds(100, 80, 300, 30);
@@ -715,7 +780,8 @@ public class RegisterStudent3 extends JFrame implements ActionListener {
 						completeButton.setBounds(100, 160, 150, 30);
 						completeButton.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
-								dispose();
+								setVisible(false);
+								new RegisterStudent4();
 							}
 						});
 						p.add(completeButton);
@@ -725,6 +791,7 @@ public class RegisterStudent3 extends JFrame implements ActionListener {
 			}
 
 			else if (educationLevel.equals("P.Hd")) {
+				setBounds(100, 100, 800, 600);
 				p.removeAll();
 				p.revalidate();
 				p.repaint();
@@ -771,7 +838,7 @@ public class RegisterStudent3 extends JFrame implements ActionListener {
 				enrollmentNumberField = new JTextField();
 				enrollmentNumberField.setBounds(180, 150, 200, 20);
 				p.add(enrollmentNumberField);
-				
+
 				durationLabel = new JLabel("Course Duration:");
 				durationLabel.setBounds(30, 180, 150, 20);
 				p.add(durationLabel);
@@ -798,16 +865,16 @@ public class RegisterStudent3 extends JFrame implements ActionListener {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						JFileChooser fileChooser = new JFileChooser();
-						FileNameExtensionFilter filter = new FileNameExtensionFilter("PDF Files",  "pdf");
+						FileNameExtensionFilter filter = new FileNameExtensionFilter("PDF Files", "pdf");
 						fileChooser.setFileFilter(filter);
 						int result = fileChooser.showOpenDialog(fileButton);
 						if (result == JFileChooser.APPROVE_OPTION) {
 							File selectedFile = fileChooser.getSelectedFile();
 							String fileName = selectedFile.getName();
-							fileLabel.setText("Selected File: " + fileName);
-							fileLabel.setBounds(30, 240, 230, 20);
+							fileLabel.setText("Attach Accomplishment:      " + fileName);
+							fileLabel.setBounds(30, 240, 350, 20);
 							fileButton.setText("Change File");
-							fileButton.setBounds(250, 240, 150, 20);
+							fileButton.setBounds(400, 240, 150, 20);
 						}
 					}
 				});
@@ -820,7 +887,6 @@ public class RegisterStudent3 extends JFrame implements ActionListener {
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						// TODO Auto-generated method stub
 						setVisible(false);
 						new RegisterStudent3();
 
@@ -833,11 +899,12 @@ public class RegisterStudent3 extends JFrame implements ActionListener {
 				addButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 
-						// Code to save the details to the database goes here
+						// TODO: Code to save the details to the database goes here
 
 						p.removeAll();
 						p.revalidate();
 						p.repaint();
+						setBounds(100, 100, 400, 400);
 
 						successLabel = new JLabel(educationLevel + " details added successfully!");
 						successLabel.setBounds(100, 80, 300, 30);
@@ -857,7 +924,8 @@ public class RegisterStudent3 extends JFrame implements ActionListener {
 						completeButton.setBounds(100, 160, 150, 30);
 						completeButton.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
-								dispose();
+								setVisible(false);
+								new RegisterStudent4();
 							}
 						});
 						p.add(completeButton);
