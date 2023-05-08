@@ -1,6 +1,9 @@
-package Student_Registration;
+package Student;
 
-import College_Registration.Account;
+
+import Student_Registration.RegisterData;
+import Student_Registration.Student;
+import Student_Registration.Validation;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.Date;
@@ -11,6 +14,7 @@ import java.util.Properties;
 import java.util.Random;
 import javax.swing.*;
 import java.io.File;
+import java.sql.ResultSet;
 /*imports for JDatePicker*/
 import javax.swing.JFormattedTextField.AbstractFormatter;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -248,7 +252,7 @@ public class RegisterFrame extends JFrame implements ActionListener {
                         JOptionPane.showMessageDialog(null, "Date of birth format is in correct");
                         return;
                     }
-                    System.out.println("Pid " + PraaptaankId.getText() +"name " + nameField.getText() +"name " + fname.getText() +"name " + mname.getText() + " dob " + dobString
+                    System.out.println("Praaptaank_id " + PraaptaankId.getText() +"name " + nameField.getText() +"name " + fname.getText() +"name " + mname.getText() + " dob " + dobString
                             + " gender " + gender + " mailid " + mailIdField.getText()
                             + " mobileNo " + mobileNoField.getText() + " password " + passwordField.getText()
                             + " rePassword " + rePasswordField.getText() );
@@ -267,8 +271,11 @@ public class RegisterFrame extends JFrame implements ActionListener {
                     System.out.println(st);
                     if (st == 1) {
                         JOptionPane.showMessageDialog(null, "Registered Successfully");
+                       
+
                         setVisible(false);
-                        new login();
+                        new RegisterStudent2(student.getPid());
+
 
                     }
                     if (st == -1) {

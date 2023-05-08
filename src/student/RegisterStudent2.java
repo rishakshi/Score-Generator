@@ -1,14 +1,17 @@
 package student;
 
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -22,10 +25,12 @@ public class RegisterStudent2 extends JFrame implements ActionListener {
 	private JTextField flatHouseNum, areaStreetSectorVillage, pincode, townCity, flatHouseNumSec,
 			areaStreetSectorVillageSec, pincodeSec, townCitySec;
 
-	public RegisterStudent2() {
+        String praaptaank_Id;
+	public RegisterStudent2(String praaptaank_id) {
 
 		super("Praptank | Student Registration");
-		setBounds(250, 50, 900, 600);
+                this.praaptaank_Id =praaptaank_id;
+		setBounds(250, 50, 650, 600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		JPanel p = new JPanel();
@@ -34,18 +39,18 @@ public class RegisterStudent2 extends JFrame implements ActionListener {
 		add(p);
 
 		Address = new JLabel("Address Details");
-		Address.setBounds(20, 10, 250, 30);
-		Address.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		Address.setBounds(250, 10, 250, 30);
+		Address.setFont(new Font("Courier", Font.BOLD, 20));
 		p.add(Address);
 
 		PermAddress = new JLabel("Permanent Address : ");
 		PermAddress.setBounds(20, 60, 250, 30);
-		PermAddress.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		PermAddress.setFont(new Font("Courier", Font.BOLD, 15));
 		p.add(PermAddress);
 
 		flatHouseNumLabel = new JLabel("Flat/House No. : ");
 		flatHouseNumLabel.setBounds(20, 100, 120, 20);
-		flatHouseNumLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+//		flatHouseNumLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		p.add(flatHouseNumLabel);
 
 		flatHouseNum = new JTextField();
@@ -54,12 +59,12 @@ public class RegisterStudent2 extends JFrame implements ActionListener {
 
 		areaStreetSectorVillageLabel = new JLabel("Area/Street/ ");
 		areaStreetSectorVillageLabel.setBounds(20, 130, 120, 20);
-		areaStreetSectorVillageLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+//		areaStreetSectorVillageLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		p.add(areaStreetSectorVillageLabel);
 
 		areaStreetSectorVillageLabel2 = new JLabel("Sector/Village : ");
 		areaStreetSectorVillageLabel2.setBounds(20, 150, 120, 20);
-		areaStreetSectorVillageLabel2.setFont(new Font("Tahoma", Font.PLAIN, 15));
+//		areaStreetSectorVillageLabel2.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		p.add(areaStreetSectorVillageLabel2);
 
 		areaStreetSectorVillage = new JTextField();
@@ -68,7 +73,7 @@ public class RegisterStudent2 extends JFrame implements ActionListener {
 
 		pincodeLabel = new JLabel("Pincode : ");
 		pincodeLabel.setBounds(20, 180, 120, 20);
-		pincodeLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+//		pincodeLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		p.add(pincodeLabel);
 
 		pincode = new JTextField();
@@ -77,7 +82,7 @@ public class RegisterStudent2 extends JFrame implements ActionListener {
 
 		townCityLabel = new JLabel("Town/City : ");
 		townCityLabel.setBounds(20, 210, 120, 20);
-		townCityLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+//		townCityLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		p.add(townCityLabel);
 
 		townCity = new JTextField();
@@ -86,7 +91,7 @@ public class RegisterStudent2 extends JFrame implements ActionListener {
 
 		stateLabel = new JLabel("State : ");
 		stateLabel.setBounds(20, 240, 120, 20);
-		stateLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+//		stateLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		p.add(stateLabel);
 
 		String[] states = { "Select", "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa",
@@ -99,12 +104,12 @@ public class RegisterStudent2 extends JFrame implements ActionListener {
 
 		PermAddress = new JLabel("Current Address : ");
 		PermAddress.setBounds(20, 280, 250, 30);
-		PermAddress.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		PermAddress.setFont(new Font("Courier", Font.BOLD, 15));
 		p.add(PermAddress);
 
 		flatHouseNumLabelSec = new JLabel("Flat/House No. : ");
 		flatHouseNumLabelSec.setBounds(20, 320, 120, 20);
-		flatHouseNumLabelSec.setFont(new Font("Tahoma", Font.PLAIN, 15));
+//		flatHouseNumLabelSec.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		p.add(flatHouseNumLabelSec);
 
 		flatHouseNumSec = new JTextField();
@@ -113,12 +118,12 @@ public class RegisterStudent2 extends JFrame implements ActionListener {
 
 		areaStreetSectorVillageLabelSec = new JLabel("Area/Street/ ");
 		areaStreetSectorVillageLabelSec.setBounds(20, 350, 120, 20);
-		areaStreetSectorVillageLabelSec.setFont(new Font("Tahoma", Font.PLAIN, 15));
+//		areaStreetSectorVillageLabelSec.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		p.add(areaStreetSectorVillageLabelSec);
 
 		areaStreetSectorVillageLabel2Sec = new JLabel("Sector/Village : ");
 		areaStreetSectorVillageLabel2Sec.setBounds(20, 370, 120, 20);
-		areaStreetSectorVillageLabel2Sec.setFont(new Font("Tahoma", Font.PLAIN, 15));
+//		areaStreetSectorVillageLabel2Sec.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		p.add(areaStreetSectorVillageLabel2Sec);
 
 		areaStreetSectorVillageSec = new JTextField();
@@ -127,7 +132,7 @@ public class RegisterStudent2 extends JFrame implements ActionListener {
 
 		pincodeLabelSec = new JLabel("Pincode : ");
 		pincodeLabelSec.setBounds(20, 400, 120, 20);
-		pincodeLabelSec.setFont(new Font("Tahoma", Font.PLAIN, 15));
+//		pincodeLabelSec.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		p.add(pincodeLabelSec);
 
 		pincodeSec = new JTextField();
@@ -136,7 +141,7 @@ public class RegisterStudent2 extends JFrame implements ActionListener {
 
 		townCityLabelSec = new JLabel("Town/City : ");
 		townCityLabelSec.setBounds(20, 430, 120, 20);
-		townCityLabelSec.setFont(new Font("Tahoma", Font.PLAIN, 15));
+//		townCityLabelSec.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		p.add(townCityLabelSec);
 
 		townCitySec = new JTextField();
@@ -145,7 +150,7 @@ public class RegisterStudent2 extends JFrame implements ActionListener {
 
 		stateLabelSec = new JLabel("State : ");
 		stateLabelSec.setBounds(20, 460, 120, 20);
-		stateLabelSec.setFont(new Font("Tahoma", Font.PLAIN, 15));
+//		stateLabelSec.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		p.add(stateLabelSec);
 
 		stateSec = new JComboBox<>(states);
@@ -174,18 +179,54 @@ public class RegisterStudent2 extends JFrame implements ActionListener {
 
 		if (e.getSource() == prev) {
 			setVisible(false);
-            new RegisterStudent();
+                        new RegisterFrame();
 		}
 
 		if (e.getSource() == next) {
-			setVisible(false);
-            new RegisterStudent3();
-		}
+                    String praaptaank_ID =praaptaank_Id;
+                    String flatno = flatHouseNum.getText();
+                    
+                    String area = areaStreetSectorVillage.getText();
+                    
+                    String pin = pincode.getText();
+                    
+                    String city = townCity.getText();
+                    
+                    String State = (String) state.getSelectedItem();
+                    
+                    String Flatno = flatHouseNumSec.getText();
+                    
+                    String Area = areaStreetSectorVillageSec.getText();
+                    
+                    String Pin = pincodeSec.getText();
+                    
+                    String City = townCitySec.getText();
+                    
+                    String Statesec = (String) stateSec.getSelectedItem();
+                   
+                   try{
+                    ConnectJDBC c = new ConnectJDBC();
+                    
+                    String query = null;
+                    
+                    query ="insert into address_info(Praaptaank_id,flatno,area,pin,city,state,flatnosec,areasec,pinsec,citysec,statesec) values('"+praaptaank_ID+"','"+flatno+"','"+area+"','"+pin+"','"+city+"','"+State+"','"+Flatno+"','"+Area+"','"+Pin+"','"+City+"','"+Statesec+"')";
+                   
+                    c.s.executeUpdate(query);
+                
+                JOptionPane.showMessageDialog(null, "Add Successfully");
+                
+                setVisible(false);
+            }catch (Exception ex) {
+                ex.printStackTrace();
+            }
+ 
+			
+                }
 
 	}
 
 	public static void main(String[] args) {
-		new RegisterStudent2();
+		new RegisterStudent2("");
 	}
 
 }
